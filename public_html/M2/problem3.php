@@ -1,16 +1,17 @@
 <?php
-$a1 = [10.001, 11.591, 0.011, 5.991, 16.121, 0.131, 100.981, 1.001];
-$a2 = [1.99, 1.99, 0.99, 1.99, 0.99, 1.99, 0.99, 0.99];
-$a3 = [0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01];
-$a4 = [10.01, -12.22, 0.23, 19.20, -5.13, 3.12];
-function getTotal($arr) {
+$a1 = [-1, -2, -3, -4, -5, -6, -7, -8, -9, -10];
+$a2 = [-1, 1, -2, 2, 3, -3, -4, 5];
+$a3 = [-0.01, -0.0001, -.15];
+$a4 = ["-1", "2", "-3", "4", "-5", "5", "-6", "6", "-7", "7"];
+
+function bePositive($arr) {
     echo "<br>Processing Array:<br><pre>" . var_export($arr, true) . "</pre>";
-    $total = 0.00;
-    //TODO do adding here
-    //TODO do rounding stuff here
-    echo "The total is " . var_export($total, true);
+    echo "<br>Positive output:<br>";
+    foreach($arr as $a){
+        echo abs($a) . " ";
+    }
 }
-echo "Problem 2: Adding Floats<br>";
+echo "Problem 3: Be Positive<br>";
 ?>
 <table>
     <thread>
@@ -22,16 +23,16 @@ echo "Problem 2: Adding Floats<br>";
     <tbody>
         <tr>
             <td>
-                <?php getTotal($a1) ?>
+                <?php bePositive($a1); ?>
             </td>
             <td>
-                <?php getTotal($a2) ?>
+                <?php bePositive($a2); ?>
             </td>
             <td>
-                <?php getTotal($a3) ?>
+                <?php bePositive($a3); ?>
             </td>
             <td>
-                <?php getTotal($a4); ?>
+                <?php bePositive($a4); ?>
             </td>
         </tr>
 </table>
