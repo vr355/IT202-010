@@ -27,6 +27,17 @@
         body {
             background-color: skyblue;
         }
+
+        ul li ul li {
+            list-style: none;
+        }
+        ul li ul li::before {
+            content: '✓';
+        }
+
+        code {
+            color:darkred
+        }
         nav ul {
             list-style-type: none;
             margin: 0;
@@ -52,12 +63,10 @@
             text-transform: capitalize;
         }
 
-        ul li ul li {
-            list-style: none;
+        footer {
+            color: rebeccapurple;
         }
-        ul li ul li::before {
-            content: '✓';
-        }
+        
     </style>
     <!-- make the necessary edits above this line -->
 
