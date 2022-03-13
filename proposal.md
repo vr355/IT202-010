@@ -1,7 +1,7 @@
 # Project Name: Simple Bank
 ## Project Summary: This project will create a bank simulation for users. They’ll be able to have various accounts, do standard bank functions like deposit, withdraw, internal (user’s accounts)/external(other user’s accounts) transfers, and creating/closing accounts.
 ## Github Link: (Prod Branch of Project Folder)
-## Project Board Link: https://github.com/users/vr355/projects/2
+## Project Board Link: https://github.com/vr355/IT202-010/projects/1
 ## Website Link: (Heroku Prod of Project folder)
 ## Your Name: Virendra Raj
 
