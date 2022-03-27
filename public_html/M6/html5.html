@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
     <title>Document</title>
+
     <style>
         #canvas {
             width: 600px;
@@ -27,6 +28,11 @@
 
         // Your score
         var score = 0;
+
+        // bonus target counter
+        var counter = 0;
+        var squareColor = '#FF0000';
+        var targetColor = '#00FF00';
 
         // Properties for your square
         var x = 50; // X position
@@ -146,6 +152,15 @@
 
         // The main draw loop
         function draw() {
+            var tLength, scoreInc;
+            if(counter == 5){
+                tLength = targetLength * 2;
+                scoreInc = 5;
+            }else{
+                tLength = targetLength;
+                scoreInc = 1
+            }
+
             erase();
             // Move the square
             if (down) {
@@ -174,20 +189,27 @@
                 x = canvas.width - sideLength;
             }
             // Collide with the target
-            if (isWithin(targetX, x, x + sideLength) || isWithin(targetX + targetLength, x, x + sideLength)) { // X
-                if (isWithin(targetY, y, y + sideLength) || isWithin(targetY + targetLength, y, y + sideLength)) { // Y
+            if (isWithin(targetX, x, x + sideLength) || isWithin(targetX + tLength, x, x + sideLength)) { // X
+                if (isWithin(targetY, y, y + sideLength) || isWithin(targetY + tLength, y, y + sideLength)) { // Y
                     // Respawn the target
                     moveTarget();
                     // Increase the score
-                    score++;
+                    score += scoreInc;
+                    counter = counter == 5 ? 0 : counter + 1 ;
+                    squareColor = targetColor;
+                    targetColor = "#" + Math.floor(Math.random()*16777215).toString(16);
                 }
             }
+
             // Draw the square
-            context.fillStyle = '#FF0000';
+            context.fillStyle = squareColor;
             context.fillRect(x, y, sideLength, sideLength);
-            // Draw the target 
-            context.fillStyle = '#00FF00';
-            context.fillRect(targetX, targetY, targetLength, targetLength);
+            // Draw the target
+
+            context.fillStyle = targetColor
+            context.fillRect(targetX, targetY, tLength, tLength);
+
+
             // Draw the score and time remaining
             context.fillStyle = '#000000';
             context.font = '24px Arial';
@@ -205,7 +227,6 @@
         // Start the game
         menu();
         canvas.focus();
-
     </script>
 </body>
 
