@@ -1,0 +1,52 @@
+.alert-success {
+  padding: 10px;
+  background-color: green;
+  margin: 5px 0;
+}
+
+.alert-warning {
+  padding: 10px;
+  background-color: #ffbf00;
+  margin: 5px 0;
+}
+
+.alert-danger {
+  padding: 10px;
+  background-color: #ff0000;
+  margin: 5px 0;
+}
+
+.alert-info {
+  padding: 10px;
+  background-color: teal;
+  margin: 5px 0;
+}
+nav li {
+  display: inline;
+  padding: 5px 20px;
+  background-color: #ccc;
+}
+
+nav li a {
+  text-decoration: none;
+}
+
+body {
+  background-color: #eee;
+}
+label {
+  font-weight: bold;
+  padding-right: 20px;
+}
+input {
+  width: 300px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+input[type='submit'] {
+  background-color: aquamarine;
+}
