@@ -22,6 +22,8 @@
 
 - [ ] Milestone 1
   - [ ] User will be able to register a new account
+  - [Milestone 1](https://github.com/vr355/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+  - [https://vr355-prod.herokuapp.com/Project/register.php](https://vr355-prod.herokuapp.com/Project/register.php)
     - [ ] Form Fields
       - [ ] Username, email, password, confirm password(other fields optional)
       - [ ] Email is required and must be validated
@@ -35,6 +37,8 @@
     - [ ] System should let user know if username or email is taken and allow the user to correct the error without wiping/clearing the form
       - [ ] The only fields that may be cleared are the password fields
 - [ ] User will be able to login to their account (given they enter the correct credentials)
+- [Milestone 1](https://github.com/vr355/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+- [https://vr355-prod.herokuapp.com/Project/login.php](https://vr355-prod.herokuapp.com/Project/login.php)
 
   - [ ] Form
     - [ ] User can login with email or username
@@ -47,12 +51,16 @@
     - [ ] This can be home, profile, a dashboard, etc
 
 - [ ] User will be able to logout
+- [Milestone 1](https://github.com/vr355/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+- [https://vr355-prod.herokuapp.com/Project/logout.php](https://vr355-prod.herokuapp.com/Project/logout.php)
 
   - [ ] Logging out will redirect to login page
   - [ ] User should see a message that they’ve successfully logged out
   - [ ] Session should be destroyed (so the back button doesn’t allow them access back in)
 
 - [ ] Basic security rules implemented
+- [Milestone 1](https://github.com/vr355/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+- [https://vr355-prod.herokuapp.com/Project/profile.php](https://vr355-prod.herokuapp.com/Project/profile.php)
 
   - [ ] Authentication:
     - [ ] Function to check if user is logged in
@@ -61,18 +69,28 @@
     - [ ] Have a roles table (see below)
 
 - [ ] Basic Roles implemented
+- [Milestone 1](https://github.com/vr355/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+- [https://vr355-prod.herokuapp.com/Project/admin/create_roles.php](https://vr355-prod.herokuapp.com/Project/admin/create_roles.php)
 
   - [ ] Have a Roles table (id, name, description, is_active, modified, created)
   - [ ] Have a User Roles table (id, user_id, role_id, is_active, created, modified)
   - [ ] Include a function to check if a user has a specific role (we won’t use it for this milestone but it should be usable in the future)
 
 - [ ] Site should have basic styles/theme applied; everything should be styled
+- [Milestone 1](https://github.com/vr355/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+- [https://vr355-prod.herokuapp.com/Project/home.php](https://vr355-prod.herokuapp.com/Project/home.php)
   - [ ] I.e., forms/input, navigation bar, etc
 - [ ] Any output messages/errors should be “user friendly”
+- [Milestone 1](https://github.com/vr355/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+- [https://vr355-prod.herokuapp.com/Project/logout.php](https://vr355-prod.herokuapp.com/Project/logout.php)
   - [ ] Any technical errors or debug output displayed will result in a loss of points
 - [ ] User will be able to see their profile
+- [Milestone 1](https://github.com/vr355/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+- [https://vr355-prod.herokuapp.com/Project/profile.php](https://vr355-prod.herokuapp.com/Project/profile.php)
   - [ ] Email, username, etc
 - [ ] User will be able to edit their profile
+- [Milestone 1](https://github.com/vr355/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+- [https://vr355-prod.herokuapp.com/Project/profile.php](https://vr355-prod.herokuapp.com/Project/profile.php)
 
   - [ ] Changing username/email should properly check to see if it’s available before allowing the change
   - [ ] Any other fields should be properly validated
