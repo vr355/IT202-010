@@ -154,8 +154,8 @@
         - [ ] If using a negative value and you’re sure it won’t change across migrations you can hard code it but label (via a comment) what it refers to
       - [ ] Transaction type should show accordingly (deposit/withdraw)
       - [ ] Calculate what the expected total would be for each account of the transaction pair
-  - [ ] Show appropriate user-friendly error messages
-  - [ ] Show user-friendly success messages
+    - [ ] Show appropriate user-friendly error messages
+    - [ ] Show user-friendly success messages
 
 - Milestone 3
   - (duplicate template here for Milestone 1 features)
