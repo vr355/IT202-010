@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
     try {
         $stmt = $db->prepare("SELECT *
-         from accounts 
+         from Accounts 
          where id=:id");
         $r = $stmt->execute(['id' => $id]);
         if ($r) {
