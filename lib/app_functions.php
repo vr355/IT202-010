@@ -72,3 +72,56 @@ function create_account($db, $amount, $account_type = 'checking')
     addTransaction($db, $user_account, getWorldAccount(), $amount);
     $db->commit();
 }
+
+function check_balance($db, $account_id)
+{
+    $stmt = $db->prepare('SELECT balance FROM accounts WHERE id = :id');
+    $stmt->execute([
+        'id' => $account_id
+    ]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['balance'];
+}
+
+function withdraw($db, $user_account, $amount, $memo = 'Withdraw')
+{
+    $db->beginTransaction();
+    $balance = (float)check_balance($db, $user_account);
+    if (($balance - $amount) < 0) {
+        flash("You don't have sufficient amount in this account. ", 'danger');
+        return false;
+    }
+
+    addTransaction($db, $user_account, getWorldAccount(), ($amount * -1), $memo, 'withdraw');
+    addTransaction($db,  getWorldAccount(), $user_account, $amount, $memo, 'withdraw');
+    $db->commit();
+    return true;
+}
+
+
+function deposit($db, $user_account, $amount, $memo)
+{
+    $db->beginTransaction();
+    addTransaction($db, $user_account, getWorldAccount(), $amount, $memo);
+    addTransaction($db,  getWorldAccount(), $user_account, $amount * -1, $memo);
+    $db->commit();
+    return true;
+}
+
+function transfer($db, $from_account, $to_account, $amount, $memo = 'Transfer')
+{
+    if ($from_account === $to_account) {
+        flash("You cannot transfer to same accounts ", 'danger');
+        return false;
+    }
+    $balance = (float)check_balance($db, $from_account);
+    if (($balance - $amount) < 0) {
+        flash("You don't have sufficient amount in this account. ", 'danger');
+        return false;
+    }
+    $db->beginTransaction();
+    addTransaction($db, $to_account, $from_account, $amount, $memo, 'Transfer');
+    addTransaction($db,  $from_account, $to_account, $amount * -1, $memo, 'Transfer');
+    $db->commit();
+    return true;
+}
