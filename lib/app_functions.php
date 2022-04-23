@@ -47,7 +47,7 @@ function create_account($db, $amount, $account_type = 'checking')
     $user_account = $db->lastInsertId();
     $account_number = sprintf('%012d', $user_account);
 
-    $stmt = $db->prepare('UPDATE SET account_number = :account_number WHERE id=:id');
+    $stmt = $db->prepare('UPDATE Accounts SET account_number = :account_number WHERE id=:id');
     $stmt->execute([
         'account_number' => $account_number,
         'id' => $user_account
