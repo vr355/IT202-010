@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS `Transactions` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `account_src` INT NOT NULL,
+  `account_dest` INT NOT NULL,
+  `balance_change` DECIMAL(18, 2) NOT NULL,
+  `transaction_type` VARCHAR(50) NOT NULL,
+  `memo` VARCHAR(50) NOT NULL,
+  `expected_total` DECIMAL(18, 2) NOT NULL,
+  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+)
