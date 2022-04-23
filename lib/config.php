@@ -2,16 +2,14 @@
 
 $ini = @parse_ini_file(".env");
 
-if($ini && isset($ini["DB_URL"])){
+if ($ini && isset($ini["DB_URL"])) {
     //load local .env file
     $url = $ini["DB_URL"];
     $db_url = parse_url($url);
-}
-else{
+} else {
     //load from heroku env variables
     $url = getenv("DB_URL");
     $db_url = parse_url($url);
-    
 }
 //attempts to handle a failure where parse_url doesn't parse properly (usually happens when special characters are included)
 if (!$db_url || count($db_url) === 0) {
@@ -26,4 +24,4 @@ if (!$db_url || count($db_url) === 0) {
 $dbhost   = $db_url["host"];
 $dbuser = $db_url["user"];
 $dbpass = $db_url["pass"];
-$dbdatabase       = substr($db_url["path"],1);
+$dbdatabase       = substr($db_url["path"], 1);

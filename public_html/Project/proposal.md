@@ -13,7 +13,7 @@
 <!-- Line item / Feature template (use this for each bullet point) -- DO NOT DELETE THIS SECTION
 
 
-- [ ] \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
+- [x]  \(mm/dd/yyyy of completion) Feature Title (from the proposal bullet point, if it's a sub-point indent it properly)
   -  Link to related .md file: [Link Name](link url)
 
  End Line item / Feature Template -- DO NOT DELETE THIS SECTION -->
@@ -98,7 +98,87 @@
     - [x] \(04/06/2022) Hint: logic for the password check would be similar to login
 
 - Milestone 2
-  - (duplicate template here for Milestone 1 features)
+
+  - [x] \(04/22/2022) Create the Accounts table (id, account_number [unique, always 12 characters], user_id, balance (default 0), account_type, created, modified)
+    - [Milestone 2](https://github.com/vr355/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://vr355-prod.herokuapp.com/Project/accounts.php](https://vr355-prod.herokuapp.com/Project/accounts.php)
+  - [x] \(04/22/2022) Project setup steps:
+    - [x] Create these as initial setup scripts in the sql folder
+      - [x] Create a system user if they don’t exist (this will never be logged into, it’s just to keep things working per system requirements)
+        - [x] Hint, id should be a negative value
+    - [x] Create a world account in the Accounts table created below (if it doesn’t exist)
+      - [x] Account_number must be “000000000000”
+      - [x] User_id must be the id of the system user
+      - [x] Account type must be “world”
+    - [Milestone 2](https://github.com/vr355/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://vr355-prod.herokuapp.com/Project/accounts.php](https://vr355-prod.herokuapp.com/Project/accounts.php)
+  - [x] \(04/22/2022) Create the Transactions table (see reference at end of document)
+    - [x] Id, created, modified, account_src, account_dest, balance_change, transaction_type, memo, expected_total, created, modified
+    - [Milestone 2](https://github.com/vr355/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://vr355-prod.herokuapp.com/Project/accounts.php](https://vr355-prod.herokuapp.com/Project/accounts.php)
+  - [x] \(04/22/2022) Dashboard page
+    - [x] Will have links for Create Account, My Accounts, Deposit, Withdraw Transfer, Profile
+      - [x] Links that don’t have pages yet should just have href=”#”, you’ll update them later
+    - [Milestone 2](https://github.com/vr355/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://vr355-prod.herokuapp.com/Project/dashboard.php](https://vr355-prod.herokuapp.com/Project/dashboard.php)
+  - [x] \(04/22/2022) User will be able to create a checking account
+    - [x] System will generate a unique 12 digit account number
+      - [x] Options (strike out the option you won’t do):
+        - [x] Option 1: Generate a random 12 digit/character value; must regenerate if a duplicate collision occurs
+        - [x] Option 2: Generate the number based on the id column; requires inserting a null first to get the last insert id, then update the record immediately after
+    - [x] System will associate the account to the user
+    - [x] Account type will be set as checking
+    - [x] Will require a minimum deposit of $5 (from the world account)
+      - [x] Entry will be recorded in the Transaction table as a transaction pair (per notes at end of document)
+      - [x] Account Balance will be updated based on SUM of balance_change of account_src
+        - [x] Do not set this value directly
+    - [x] User will see user-friendly error messages when appropriate
+    - [x] User will see user-friendly success message when account is created successfully
+      - [x] Redirect user to their Accounts page upon success
+    - [Milestone 2](https://github.com/vr355/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+  - [x] \(04/22/2022) User will be able to list their accounts
+    - [x] Limit results to 5 for now
+    - [x] Show account number, account type, modified, and balance
+    - [Milestone 2](https://github.com/vr355/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://vr355-prod.herokuapp.com/Project/create_account.php](https://vr355-prod.herokuapp.com/Project/create_account.php)
+    - [https://vr355-prod.herokuapp.com/Project/accounts.php](https://vr355-prod.herokuapp.com/Project/accounts.php)
+  - [x] \(04/22/2022) User will be able to click an account for more information (a.k.a Transaction History page)
+    - [x] Show account number, account type, balance, opened/created date of the selected account
+    - [x] Show transaction history (from Transactions table)
+      - [x] For now limit results to 10 latest
+      - [x] Show the src/dest accounts, the transaction type, the change in balance, when it occurred, expected total, and the memo
+    - [Milestone 2](https://github.com/vr355/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://vr355-prod.herokuapp.com/Project/account_history.php](https://vr355-prod.herokuapp.com/Project/account_history.php)
+  - [x] \(04/22/2022) User will be able to deposit/withdraw from their account(s)
+    - [x] Form should have a dropdown of their accounts to pick from
+      - [x] World account should not be in the dropdown as it’s not owned by anyone
+    - [x] Form should have a field to enter a positive numeric value
+      - [x] For now, allow any deposit value (1 - inf)
+    - [x] For withdraw, add a check to make sure they can’t withdraw more money than the account has
+    - [x] Form should allow the user to record a memo for the transaction
+    - [x] Each transaction is recorded as a transaction pair in the Transaction table per the details below and at the end of the document
+      - [x] These will reflect on the transaction history page (Account page’s “more info”)
+      - [x] After each transaction pair, make sure to update the Account Balance by SUMing the balance_change for the account_src
+        - [x] This will be done after the insert
+      - [x] Deposits will be from the “world account”
+        - [x] If the world account is using a positive id you must fetch the world account’s id (do not hard code the id as it may change if the application migrates or gets rebuilt)
+        - [x] If using a negative value and you’re sure it won’t change across migrations you can hard code it but label (via a comment) what it refers to
+      - [x] Withdraws will be to the “world account”
+        - [x] If the world account is using a positive id you must fetch the world account’s id (do not hard code the id as it may change if the application migrates or gets rebuilt)
+        - [x] If using a negative value and you’re sure it won’t change across migrations you can hard code it but label (via a comment) what it refers to
+      - [x] Transaction type should show accordingly (deposit/withdraw)
+      - [x] Calculate what the expected total would be for each account of the transaction pair
+    - [Milestone 2](https://github.com/vr355/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://vr355-prod.herokuapp.com/Project/transactions.php?type=deposit](https://vr355-prod.herokuapp.com/Project/transactions.php?type=deposit)
+    - [https://vr355-prod.herokuapp.com/Project/transactions.php?type=withdraw](https://vr355-prod.herokuapp.com/Project/transactions.php?type=withdraw)
+    - [https://vr355-prod.herokuapp.com/Project/transactions.php?type=transfer](https://vr355-prod.herokuapp.com/Project/transactions.php?type=transfer)
+    - [x] \(04/22/2022) Show appropriate user-friendly error messages
+      - [Milestone 2](https://github.com/vr355/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+      - [https://vr355-prod.herokuapp.com/Project/transactions.php?type=deposit](https://vr355-prod.herokuapp.com/Project/transactions.php?type=deposit)
+    - [x] \(04/22/2022) Show user-friendly success messages
+      - [Milestone 2](https://github.com/vr355/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+      - [https://vr355-prod.herokuapp.com/Project/transactions.php?type=deposit](https://vr355-prod.herokuapp.com/Project/transactions.php?type=deposit)
+
 - Milestone 3
   - (duplicate template here for Milestone 1 features)
 - Milestone 4
