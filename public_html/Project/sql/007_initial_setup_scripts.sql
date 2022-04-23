@@ -1,6 +1,11 @@
 INSERT INTO
   Users(id, email, username, password)
-VALUES(-1, 'admin@gmail.com', 'admin', 'admin');
+VALUES(
+    -1,
+    'admin@gmail.com',
+    'admin',
+    '$2y$10$XwTMEEJZXhkTyjWNB.jGk.PTG1OG5UB7TBXDCxqfYPy8s2X85iMGK'
+  );
 INSERT INTO
   Accounts(account_number, user_id, account_type, balance)
 VALUES
