@@ -94,7 +94,7 @@ if (isset($_REQUEST["type"])) {
     </div>
     <div class="form-group col-md-3">
         <label for="change">Amount</label>
-        <input type="number" name="change" value="<?php se($_POST, '', 'change'); ?>"> />
+        <input type="number" name="change" value="<?php se($_POST, '', 'change'); ?>" />
     </div>
     <div class="form-group col-md-3">
         <label for="change">Memo</label>
