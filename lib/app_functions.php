@@ -14,28 +14,6 @@ function update_balance($db, $account_id)
 }
 
 
-function create_random_account_number($db)
-{
-    $exists = true;
-    //create account
-    do {
-        $account_number = sprintf('%012d', rand(1, 999999999999));
-        $stmt = $db->prepare("SELECT count(*) as count from accounts where account_number=:account_number");
-        try {
-            $r = $stmt->execute([":account_number" => $account_number]);
-            if ($r) {
-                $row = $stmt->fetch();
-                $exists = !!$row['count'];
-            }
-        } catch (\Throwable $e) {
-            flash("<pre>" . var_export($e, true) . "</pre>");
-        }
-    } while ($exists);
-
-    return $account_number;
-}
-
-
 function addTransaction($db, $account_src, $account_dest, $amount, $memo = 'Test', $type = 'deposit')
 {
 
@@ -56,17 +34,24 @@ function addTransaction($db, $account_src, $account_dest, $amount, $memo = 'Test
 function create_account($db, $amount, $account_type = 'checking')
 {
     $db->beginTransaction();
-    $account_number = create_random_account_number($db);
+
     $stmt = $db->prepare('INSERT into accounts(account_number, user_id, balance, account_type) 
             values(:account_number, :user_id, :balance, :account_type)');
     $stmt->execute([
-        'account_number' => $account_number,
+        'account_number' => 'dummy',
         'user_id' => get_user_id(),
         'balance' => $amount,
         'account_type' => $account_type
     ]);
 
     $user_account = $db->lastInsertId();
+    $account_number = sprintf('%012d', $user_account);
+
+    $stmt = $db->prepare('UPDATE SET account_number = :account_number WHERE id=:id');
+    $stmt->execute([
+        'account_number' => $account_number,
+        'id' => $user_account
+    ]);
 
     addTransaction($db, getWorldAccount(), $user_account, $amount * -1);
     addTransaction($db, $user_account, getWorldAccount(), $amount);
