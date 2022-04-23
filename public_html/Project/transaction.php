@@ -7,7 +7,7 @@ $db = getDB();
 $user_id = get_user_id();
 $accounts = [];
 try {
-    $stmt = $db->prepare("SELECT id, account_number from accounts where user_id=:user_id order by modified desc");
+    $stmt = $db->prepare("SELECT id, account_number from Accounts where user_id=:user_id order by modified desc");
     $r = $stmt->execute(['user_id' => $user_id]);
     if ($r) {
         $accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);

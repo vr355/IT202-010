@@ -17,8 +17,8 @@ if (isset($_GET['id'])) {
                 $stmt = $db->prepare("SELECT a.account_number as 'src/dest'
                 , transaction_type, memo, 
                 balance_change, expected_total, t.modified
-                 from transactions t
-                 join accounts a on t.account_dest = a.id
+                 from Transactions t
+                 join Accounts a on t.account_dest = a.id
                  where account_src=:id or (account_dest=:id and account_src <> -1 and transaction_type <> 'transfer')
                  order by modified desc limit 10");
                 $r = $stmt->execute(['id' => $id]);
