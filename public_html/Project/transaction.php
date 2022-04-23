@@ -12,7 +12,7 @@ try {
     if ($r) {
         $accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-} catch (\Throwable $th) {
+} catch (\Throwable $e) {
     flash("<pre>" . var_export($e, true) . "</pre>");
 }
 //deposit/withdraw needs 1 dropdown

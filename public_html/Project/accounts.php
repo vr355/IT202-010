@@ -10,7 +10,7 @@ try {
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-} catch (\Throwable $th) {
+} catch (\Throwable $e) {
     flash("<pre>" . var_export($e, true) . "</pre>");
 }
 ?>
