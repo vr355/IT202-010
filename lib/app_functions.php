@@ -35,7 +35,7 @@ function create_account($db, $amount, $account_type = 'checking')
 {
     $db->beginTransaction();
 
-    $stmt = $db->prepare('INSERT into accounts(account_number, user_id, balance, account_type) 
+    $stmt = $db->prepare('INSERT into Accounts(account_number, user_id, balance, account_type) 
             values(:account_number, :user_id, :balance, :account_type)');
     $stmt->execute([
         'account_number' => 'dummy',
@@ -96,7 +96,7 @@ function deposit($db, $user_account, $amount, $memo)
 function transfer($db, $from_account, $to_account, $amount, $memo = 'Transfer')
 {
     if ($from_account === $to_account) {
-        flash("You cannot transfer to same accounts ", 'danger');
+        flash("You cannot transfer to same Account ", 'danger');
         return false;
     }
     $balance = (float)check_balance($db, $from_account);
