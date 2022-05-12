@@ -80,7 +80,7 @@ if (isset($_REQUEST["type"])) {
                 if ($success)
                     flash('External Transfer successful', 'success');
             } catch (\Throwable $e) {
-                $db->rollback();
+                // $db->rollback();
                 flash("<pre>" . var_export($e, true) . "</pre>");
             }
         }
