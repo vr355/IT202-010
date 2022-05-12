@@ -113,8 +113,8 @@ function transfer($db, $from_account, $to_account, $amount, $memo = 'Transfer')
 
 function ext_transfer($db, $from_account, $lastname, $digits, $amount, $memo = 'Transfer')
 {
-    $stmt = $db->prepare("select a.id, a.account_number, a.user_id from accounts a
-    join users u on u.id = a.user_id
+    $stmt = $db->prepare("select a.id, a.account_number, a.user_id from Accounts a
+    join Users u on u.id = a.user_id
     where u.lastname = :lastname and account_number like :digits
     ");
     $r = $stmt->execute(['lastname' => $lastname, 'digits' => "%$digits"]);
