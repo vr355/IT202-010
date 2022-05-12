@@ -110,3 +110,45 @@ function transfer($db, $from_account, $to_account, $amount, $memo = 'Transfer')
     $db->commit();
     return true;
 }
+
+function ext_transfer($db, $from_account, $lastname, $digits, $amount, $memo = 'Transfer')
+{
+    $stmt = $db->prepare("select a.id, a.account_number, a.user_id from accounts a
+    join users u on u.id = a.user_id
+    where u.lastname = :lastname and account_number like :digits
+    ");
+    $r = $stmt->execute(['lastname' => $lastname, 'digits' => "%$digits"]);
+    if ($r) {
+        $account = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($account) {
+            $to_account = $account['id'];
+            if ($account['user_id'] == get_user_id()) {
+                flash("Use Transfer form to transfer funds in same user accounts ", 'danger');
+                return false;
+            }
+            if ($from_account == $to_account) {
+                flash("You cannot transfer to same Account ", 'danger');
+                return false;
+            }
+
+            $balance = (float)check_balance($db, $from_account);
+            if (($balance - $amount) < 0) {
+                flash("You don't have sufficient amount in this account. ", 'danger');
+                return false;
+            }
+
+            $db->beginTransaction();
+            addTransaction($db, $to_account, $from_account, $amount, $memo, 'Transfer');
+            addTransaction($db,  $from_account, $to_account, $amount * -1, $memo, 'Transfer');
+            $db->commit();
+        } else {
+            flash("Account doesn't exist", 'danger');
+            return false;
+        }
+    } else {
+        flash("Account doesn't exist", 'danger');
+        return false;
+    }
+
+    return true;
+}
