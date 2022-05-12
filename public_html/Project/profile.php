@@ -6,10 +6,12 @@ is_logged_in(true);
 if (isset($_POST["save"])) {
     $email = se($_POST, "email", null, false);
     $username = se($_POST, "username", null, false);
+    $firstname = se($_POST, "firstname", null, false);
+    $lastname = se($_POST, "lastname", null, false);
 
-    $params = [":email" => $email, ":username" => $username, ":id" => get_user_id()];
+    $params = [':firstname' => $firstname, ':lastname' => $lastname, ":email" => $email, ":username" => $username, ":id" => get_user_id()];
     $db = getDB();
-    $stmt = $db->prepare("UPDATE Users set email = :email, username = :username where id = :id");
+    $stmt = $db->prepare("UPDATE Users set email = :email, username = :username, firstname=:firstname, lastname=:lastname where id = :id");
     try {
         $stmt->execute($params);
         flash("Profile saved", "success");
@@ -29,7 +31,7 @@ if (isset($_POST["save"])) {
         }
     }
     //select fresh data from table
-    $stmt = $db->prepare("SELECT id, email, username from Users where id = :id LIMIT 1");
+    $stmt = $db->prepare("SELECT id, firstname, lastname, email, username from Users where id = :id LIMIT 1");
     try {
         $stmt->execute([":id" => get_user_id()]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -37,6 +39,8 @@ if (isset($_POST["save"])) {
             //$_SESSION["user"] = $user;
             $_SESSION["user"]["email"] = $user["email"];
             $_SESSION["user"]["username"] = $user["username"];
+            $_SESSION["user"]["firstname"] = $user["firstname"];
+            $_SESSION["user"]["lastname"] = $user["lastname"];
         } else {
             flash("User doesn't exist", "danger");
         }
@@ -84,32 +88,45 @@ if (isset($_POST["save"])) {
 <?php
 $email = get_user_email();
 $username = get_username();
+$firstname = get_firstname();
+$lastname = get_lastname();
 ?>
-<form method="POST" onsubmit="return validate(this);">
-    <div class="mb-3">
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" value="<?php se($email); ?>" />
-    </div>
-    <div class="mb-3">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" value="<?php se($username); ?>" />
-    </div>
-    <!-- DO NOT PRELOAD PASSWORD -->
-    <div>Password Reset</div>
-    <div class="mb-3">
-        <label for="cp">Current Password</label>
-        <input type="password" name="currentPassword" id="cp" />
-    </div>
-    <div class="mb-3">
-        <label for="np">New Password</label>
-        <input type="password" name="newPassword" id="np" />
-    </div>
-    <div class="mb-3">
-        <label for="conp">Confirm Password</label>
-        <input type="password" name="confirmPassword" id="conp" />
-    </div>
-    <input type="submit" value="Update Profile" name="save" />
-</form>
+<div class="container">
+    <form method="POST" onsubmit="return validate(this);">
+        <div class="mb-3">
+            <label for="firstname">First Name</label>
+            <input type="text" name="firstname" id="firstname" value="<?php se($firstname); ?>" />
+        </div>
+        <div class="mb-3">
+            <label for="lastname">Last Name</label>
+            <input type="text" name="lastname" id="lastname" value="<?php se($lastname); ?>" />
+        </div>
+        <div class="mb-3">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" value="<?php se($email); ?>" />
+        </div>
+        <div class="mb-3">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" value="<?php se($username); ?>" />
+        </div>
+        <!-- DO NOT PRELOAD PASSWORD -->
+        <div>Password Reset</div>
+        <div class="mb-3">
+            <label for="cp">Current Password</label>
+            <input type="password" name="currentPassword" id="cp" />
+        </div>
+        <div class="mb-3">
+            <label for="np">New Password</label>
+            <input type="password" name="newPassword" id="np" />
+        </div>
+        <div class="mb-3">
+            <label for="conp">Confirm Password</label>
+            <input type="password" name="confirmPassword" id="conp" />
+        </div>
+        <input type="submit" value="Update Profile" name="save" />
+    </form>
+</div>
+
 
 <script>
     function validate(form) {

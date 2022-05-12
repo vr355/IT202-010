@@ -72,38 +72,41 @@ if (isset($_REQUEST["type"])) {
     //refresh both affected account balances
 }
 ?>
-<h1>Transaction (<?php se($_GET, "type", "Not set"); ?>)</h1>
-<form method="POST" onsubmit="return validate(this)">
-    <?php if ($_GET['type'] == 'transfer') : ?>
+<div class="container">
+    <h1>Transaction (<?php se($_GET, "type", "Not set"); ?>)</h1>
+    <form method="POST" onsubmit="return validate(this)">
+        <?php if ($_GET['type'] == 'transfer') : ?>
+            <div class="form-group col-md-3">
+                <label for="user_account">From Account</label>
+                <select class='form-control' name="from_account">
+                    <?php foreach ($accounts as $account) : ?>
+                        <option <?php if (se($_POST, 'from_account', '', false) == se($account, 'id')) echo 'selected' ?> value="<?php se($account, 'id'); ?>"><?php se($account, "account_number"); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        <?php endif ?>
         <div class="form-group col-md-3">
-            <label for="user_account">From Account</label>
-            <select class='form-control' name="from_account">
+            <label for="user_account">Select Account</label>
+            <select class='form-control' name="user_account">
                 <?php foreach ($accounts as $account) : ?>
-                    <option value="<?php se($account, 'id'); ?>"><?php se($account, "account_number"); ?></option>
+                    <option <?php if (se($_POST, 'user_account', '', false) == se($account, 'id')) echo 'selected' ?> value="<?php se($account, 'id'); ?>"><?php se($account, "account_number"); ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
-    <?php endif ?>
-    <div class="form-group col-md-3">
-        <label for="user_account">Select Account</label>
-        <select class='form-control' name="user_account">
-            <?php foreach ($accounts as $account) : ?>
-                <option value="<?php se($account, 'id'); ?>"><?php se($account, "account_number"); ?></option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-    <div class="form-group col-md-3">
-        <label for="change">Amount</label>
-        <input type="number" name="change" value="<?php se($_POST, 'change'); ?>" />
-    </div>
-    <div class="form-group col-md-3">
-        <label for="change">Memo</label>
-        <input type="text" name="memo" value="<?php se($_POST, 'memo'); ?>" />
-    </div>
+        <div class="form-group col-md-3">
+            <label for="change">Amount</label>
+            <input type="number" name="change" value="<?php se($_POST, 'change'); ?>" />
+        </div>
+        <div class="form-group col-md-3">
+            <label for="change">Memo</label>
+            <input type="text" name="memo" value="<?php se($_POST, 'memo'); ?>" />
+        </div>
 
 
-    <input type="submit" name="submit" value="Save" class="btn btn-info" />
-</form>
+        <input type="submit" name="submit" value="Save" class="btn btn-info" />
+    </form>
+</div>
+
 <script>
     function validate(form) {
         //ensure it returns false for an error and true for success
