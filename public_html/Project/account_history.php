@@ -32,7 +32,7 @@ if (isset($_GET['id'])) {
 
     $query .= " order by modified desc limit $page_first_result, $results_per_page";
     //determine the total number of pages available  
-    $number_of_page = ceil(getTotalResults($db,  $id, $query) / $results_per_page);
+    $number_of_page = ceil(getTotalResults($db,  $id, $from, $to, $type) / $results_per_page);
 
     try {
         $stmt = $db->prepare("SELECT *
@@ -42,9 +42,6 @@ if (isset($_GET['id'])) {
         if ($r) {
             $account = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($account) {
-
-
-                echo $query;
                 $stmt = $db->prepare($query);
                 $r = $stmt->execute(['id' => $id]);
                 if ($r) {
@@ -59,8 +56,24 @@ if (isset($_GET['id'])) {
     }
 }
 
-function getTotalResults($db, $id, $query)
+function getTotalResults($db, $id, $from, $to, $type)
 {
+    $query = "SELECT b.account_number as 'source', a.account_number as dest
+                , transaction_type, memo, 
+                balance_change, t.modified
+                 from Transactions t
+                 join Accounts a on t.account_src = a.id
+                 join Accounts b on t.account_dest = b.id where (account_src=:id or account_dest=:id)
+                 ";
+    if ($type) {
+        $query .= " and t.transaction_type = '" . $type . "'";
+    }
+    if ($from) {
+        $query .= " and t.created >= '" . $from . "'";
+    }
+    if ($to) {
+        $query .= " and t.created <= '" . $to . "'";
+    }
     $stmt =   $db->prepare($query);
     $stmt->execute([
         'id' => $id
