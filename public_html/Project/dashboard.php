@@ -12,6 +12,7 @@ require(__DIR__ . "/../../partials/nav.php");
                     <li><a href="<?php echo get_url('transaction.php?type=deposit'); ?>">Deposit</a></li>
                     <li><a href="<?php echo get_url('transaction.php?type=withdraw'); ?>">Withdraw</a></li>
                     <li><a href="<?php echo get_url('transaction.php?type=transfer'); ?>">Transfer</a></li>
+                    <li><a href="<?php echo get_url('transaction.php?type=ext-transfer'); ?>">External Transfer</a></li>
                 <?php endif; ?>
             </ul>
         </nav>
