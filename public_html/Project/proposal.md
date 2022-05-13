@@ -180,7 +180,48 @@
       - [https://vr355-prod.herokuapp.com/Project/transactions.php?type=deposit](https://vr355-prod.herokuapp.com/Project/transactions.php?type=deposit)
 
 - Milestone 3
-  - (duplicate template here for Milestone 1 features)
+
+  - [x] \(04/22/2022) User will be able to transfer between their accounts
+
+    - [x] \(04/22/2022) Form should include a dropdown first account_src and a dropdown for account_dest (only accounts the user owns; no world account)
+    - [x] \(04/22/2022) Form should include a field for a positive numeric value
+    - [x] \(04/22/2022) System shouldn’t allow the user to transfer more funds than what’s available in account_src
+    - [x] \(04/22/2022) Form should allow the user to record a memo for the transaction
+    - [x] \(04/22/2022) Each transaction is recorded as a transaction pair in the Transaction table
+      - [x] \(04/22/2022) These will reflect in the transaction history page
+    - [x] \(04/22/2022) Show appropriate user-friendly error messages
+    - [x] \(04/22/2022) Show user-friendly success messages
+    - [Milestone 3](https://github.com/vr355/IT202-010/blob/Milestone2/public_html/Project/milestone3.md)
+    - [https://vr355-prod.herokuapp.com/Project/transactions.php?type=transfer](https://vr355-prod.herokuapp.com/Project/transactions.php?type=transfer)
+
+  - [x] \(05/12/2022) Transaction History page
+    - [x] \(05/12/2022) Will show the latest 10 transactions by default
+    - [x] \(05/12/2022) User will be able to filter transactions between two dates
+    - [x] \(05/12/2022) User will be able to filter transactions by type (deposit, withdraw, transfer)
+    - [x] \(05/12/2022) Transactions should paginate results after the initial 10
+    - [Milestone 3](https://github.com/vr355/IT202-010/blob/Milestone2/public_html/Project/milestone3.md)
+    - [https://vr355-prod.herokuapp.com/Project/transactions.php?type=transfer](https://vr355-prod.herokuapp.com/Project/transactions.php?type=transfer)
+  - [x] \(05/12/2022) User’s profile page should record/show First and Last name
+
+    - [Milestone 3](https://github.com/vr355/IT202-010/blob/Milestone2/public_html/Project/milestone3.md)
+    - [https://vr355-prod.herokuapp.com/Project/transactions.php?type=transfer](https://vr355-prod.herokuapp.com/Project/transactions.php?type=transfer)
+
+  - [x] \(05/12/2022) User will be able to transfer funds to another user’s account
+    - [x] \(05/12/2022) Form should include a dropdown of the current user’s accounts (as account_src)
+    - [x] \(05/12/2022) Form should include a field for the destination user’s last name
+    - [x] \(05/12/2022) Form should include a field for the last 4 digits of the destination user’s account number (to lookup AccountDest)
+    - [x] \(05/12/2022) Form should include a field for a positive numerical value
+    - [x] \(05/12/2022) Form should allow the user to record a memo for the transaction
+    - [x] \(05/12/2022) System shouldn’t let the user transfer more than the balance of their account
+    - [x] \(05/12/2022) System will lookup appropriate account based on destination user’s last name and the last 4 digits of the account number
+    - [x] \(05/12/2022) Show appropriate user-friendly error messages
+    - [x] \(05/12/2022) Show user-friendly success messages
+    - [x] \(05/12/2022) Transaction will be recorded with the type as “ext-transfer”
+    - [x] \(05/12/2022) Each transaction is recorded as a transaction pair in the Transaction table
+      - [x] \(05/12/2022) These will reflect in the transaction history page
+    - [Milestone 3](https://github.com/vr355/IT202-010/blob/Milestone2/public_html/Project/milestone3.md)
+    - [https://vr355-prod.herokuapp.com/Project/transactions.php?type=transfer](https://vr355-prod.herokuapp.com/Project/transactions.php?type=transfer)
+
 - Milestone 4
   - (duplicate template here for Milestone 1 features)
   -
