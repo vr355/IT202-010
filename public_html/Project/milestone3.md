@@ -1,6 +1,6 @@
 <table><tr><td> <em>Assignment: </em> IT202 Milestone 3 Bank Project</td></tr>
 <tr><td> <em>Student: </em> Virendra Raj(vr355)</td></tr>
-<tr><td> <em>Generated: </em> 5/13/2022 8:57:34 AM</td></tr>
+<tr><td> <em>Generated: </em> 5/13/2022 9:01:10 AM</td></tr>
 <tr><td> <em>Grading Link: </em> <a rel="noreferrer noopener" href="https://learn.ethereallab.app/homework/IT202-010-S22/it202-milestone-3-bank-project/grade/vr355" target="_blank">Grading</a></td></tr></table>
 <table><tr><td> <em>Instructions: </em> <ol>
 <li>Checkout Milestone3 branch </li>
@@ -129,7 +129,7 @@ All website links must be from prod (you can assume/infer this by getting your d
 <tr><td> <em>Sub-Task 7: </em> Briefly explain the process of looking up the target user's account and the validation logic</td></tr>
 <tr><td> <em>Response:</em> <p>Before transfer, validate if amount exist and is positive.  Then search the<br>user by last name if user is found, search the account with user<br>id and last four digit. If account is found then validate if user<br>that transfering the amount have enough fund in his account. If all is<br>validated then transfer the amount.<br></p><br></td></tr>
 <tr><td> <em>Sub-Task 8: </em> Add pull request(s) url</td></tr>
-<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://github.com/vr355/IT202-010/pull/42">https://github.com/vr355/IT202-010/pull/42</a> </td></tr>
+<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://github.com/vr355/IT202-010/pull/47">https://github.com/vr355/IT202-010/pull/47</a> </td></tr>
 <tr><td> <em>Sub-Task 9: </em> Add link to transfer page from heroku</td></tr>
 <tr><td> <a rel="noreferrer noopener" target="_blank" href="https://vr355-dev.herokuapp.com/Project/transaction.php?type=ext-transfer">https://vr355-dev.herokuapp.com/Project/transaction.php?type=ext-transfer</a> </td></tr>
 </table></td></tr>
