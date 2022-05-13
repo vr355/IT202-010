@@ -28,13 +28,14 @@ if (isset($_POST["deposit"])) {
 }
 ?>
 
-<div class="container-fluid">
+<div class="container">
     <h1>Create Account</h1>
     <form onsubmit="return validate(this)" method="POST">
         <div class="form-group col-md-3">
             <label for="account_type">Account Type</label>
             <select class='form-control' name="account_type" id='account_type'>
                 <option value='checking'>Checking</option>
+                <option value='saving'>Saving</option>
             </select>
         </div>
 

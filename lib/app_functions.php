@@ -58,12 +58,16 @@ function create_account($db, $amount, $account_type = 'checking')
     $db->commit();
 }
 
-function check_balance($db, $account_id)
+function check_balance($db, $account_id, $type = null)
 {
-    $stmt = $db->prepare('SELECT balance FROM Accounts WHERE id = :id');
-    $stmt->execute([
-        'id' => $account_id
-    ]);
+    $params = ['id' => $account_id];
+    $query = 'SELECT balance FROM Accounts WHERE id = :id';
+    if ($type) {
+        $query .= " and account_type = :type";
+        $params = ['id' => $account_id, 'type' => $type];
+    }
+    $stmt = $db->prepare($query);
+    $stmt->execute($params);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     return $result['balance'];
 }
@@ -102,6 +106,10 @@ function transfer($db, $from_account, $to_account, $amount, $memo = 'Transfer')
     $balance = (float)check_balance($db, $from_account);
     if (($balance - $amount) < 0) {
         flash("You don't have sufficient amount in this account. ", 'danger');
+        return false;
+    }
+    if (!is_valid_loan_amount($db, $to_account, $amount)) {
+        flash("You cannot pay more than loan remaining. ", 'danger');
         return false;
     }
     $db->beginTransaction();
@@ -151,4 +159,55 @@ function ext_transfer($db, $from_account, $lastname, $digits, $amount, $memo = '
     }
 
     return true;
+}
+
+function create_loan($db, $amount, $user_account)
+{
+    $db->beginTransaction();
+
+    $stmt = $db->prepare('INSERT into Accounts(account_number, user_id, balance, account_type) 
+            values(:account_number, :user_id, :balance, :account_type)');
+    $stmt->execute([
+        'account_number' => 'dummy',
+        'user_id' => get_user_id(),
+        'balance' => $amount,
+        'account_type' => 'loan'
+    ]);
+
+    $loan_account = $db->lastInsertId();
+    $account_number = sprintf('%012d', $loan_account);
+
+    $stmt = $db->prepare('UPDATE Accounts SET account_number = :account_number WHERE id=:id');
+    $stmt->execute([
+        'account_number' => $account_number,
+        'id' => $loan_account
+    ]);
+
+    addTransaction($db, $loan_account, $user_account, $amount * -1);
+    addTransaction($db, $user_account, $loan_account, $amount);
+    $db->commit();
+}
+
+function is_valid_loan_amount($db, $id, $amount)
+{
+    $balance = (float) check_balance($db, $id, 'loan');
+    return ($balance + (float)$amount) < 0;
+}
+
+function get_ayp($db, $type)
+{
+    $db->beginTransaction();
+
+    $stmt = $db->prepare('SELECT value FROM SystemProperties where type = :type and property = "apy"');
+    $r = $stmt->execute([
+        'type' => $type
+    ]);
+    if ($r) {
+        $property = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($property) {
+            return $property['value'];
+        } else {
+            flash('Property does not exists', 'danger');
+        }
+    }
 }
