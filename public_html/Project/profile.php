@@ -90,6 +90,7 @@ $email = get_user_email();
 $username = get_username();
 $firstname = get_firstname();
 $lastname = get_lastname();
+$is_private = is_private_profile();
 ?>
 <div class="container">
     <form method="POST" onsubmit="return validate(this);">
@@ -108,6 +109,10 @@ $lastname = get_lastname();
         <div class="mb-3">
             <label for="username">Username</label>
             <input type="text" name="username" id="username" value="<?php se($username); ?>" />
+        </div>
+        <div class="mb-3">
+            <label for="is_private">Is Private</label>
+            <input type="checkbox" name="is_private" id="is_private" value="1" <?php echo $is_private ? 'checked' : ''; ?> />
         </div>
         <!-- DO NOT PRELOAD PASSWORD -->
         <div>Password Reset</div>

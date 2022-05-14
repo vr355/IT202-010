@@ -62,3 +62,11 @@ function get_lastname()
     }
     return "";
 }
+
+function is_private_profile()
+{
+    if (is_logged_in()) { //we need to check for login first because "user" key may not exist
+        return se($_SESSION["user"], "is_private", "", false);
+    }
+    return "";
+}

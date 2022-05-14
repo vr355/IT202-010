@@ -6,11 +6,20 @@ is_logged_in(true);
 $db = getDB();
 $user_id = get_user_id();
 $accounts = [];
+$to_accounts = [];
 try {
-    $stmt = $db->prepare("SELECT id, account_number from Accounts where user_id=:user_id order by modified desc");
+    $stmt = $db->prepare("SELECT id, account_number from Accounts 
+    where user_id=:user_id and account_type <> 'loan' and is_active=1  order by modified desc");
     $r = $stmt->execute(['user_id' => $user_id]);
     if ($r) {
         $accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    $stmt = $db->prepare("SELECT id, account_number from Accounts 
+    where user_id=:user_id and is_active=1  order by modified desc");
+    $r = $stmt->execute(['user_id' => $user_id]);
+    if ($r) {
+        $to_accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 } catch (\Throwable $e) {
     flash("<pre>" . var_export($e, true) . "</pre>");
@@ -64,7 +73,7 @@ if (isset($_REQUEST["type"])) {
                 if ($success)
                     flash('Transfer successful', 'success');
             } catch (\Throwable $e) {
-                $db->rollback();
+                // $db->rollback();
                 flash("<pre>" . var_export($e, true) . "</pre>");
             }
         }
@@ -96,7 +105,7 @@ if (isset($_REQUEST["type"])) {
                 <label for="user_account">From Account</label>
                 <select class='form-control' name="from_account">
                     <?php foreach ($accounts as $account) : ?>
-                        <option <?php if (se($_POST, 'from_account', '', false) == se($account, 'id')) echo 'selected' ?> value="<?php se($account, 'id'); ?>"><?php se($account, "account_number"); ?></option>
+                        <option <?php if (se($_POST, 'from_account', '', false) == se($account, 'id', '', false)) echo 'selected' ?> value="<?php se($account, 'id'); ?>"><?php se($account, "account_number"); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -104,8 +113,8 @@ if (isset($_REQUEST["type"])) {
         <div class="form-group col-md-3">
             <label for="user_account">Select Account</label>
             <select class='form-control' name="user_account">
-                <?php foreach ($accounts as $account) : ?>
-                    <option <?php if (se($_POST, 'user_account', '', false) == se($account, 'id')) echo 'selected' ?> value="<?php se($account, 'id'); ?>"><?php se($account, "account_number"); ?></option>
+                <?php foreach ($to_accounts as $account) : ?>
+                    <option <?php if (se($_POST, 'user_account', '', false) == se($account, 'id', '', false)) echo 'selected' ?> value="<?php se($account, 'id'); ?>"><?php se($account, "account_number"); ?></option>
                 <?php endforeach; ?>
             </select>
         </div>

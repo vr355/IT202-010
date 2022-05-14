@@ -9,6 +9,7 @@ require(__DIR__ . "/../../partials/nav.php");
                 <?php if (is_logged_in()) : ?>
                     <li><a href="<?php echo get_url('accounts.php'); ?>">My Accounts</a></li>
                     <li><a href="<?php echo get_url('create_account.php'); ?>">Create Account</a></li>
+                    <li><a href="<?php echo get_url('create_loan.php'); ?>">Loan</a></li>
                     <li><a href="<?php echo get_url('transaction.php?type=deposit'); ?>">Deposit</a></li>
                     <li><a href="<?php echo get_url('transaction.php?type=withdraw'); ?>">Withdraw</a></li>
                     <li><a href="<?php echo get_url('transaction.php?type=transfer'); ?>">Transfer</a></li>

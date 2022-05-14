@@ -1,0 +1,1 @@
+ALTER TABLE Accounts ADD COLUMN is_active TINYINT DEFAULT 1;
