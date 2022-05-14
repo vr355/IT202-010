@@ -26,6 +26,7 @@ try {
                         <?php if ($column === 'id') continue; ?>
                         <th><?php se($column); ?></th>
                     <?php endforeach; ?>
+                    <th>AYP</th>
                     <th>Actions</th>
                 </thead>
             <?php endif; ?>
@@ -34,6 +35,7 @@ try {
                     <?php if ($column === 'id') continue; ?>
                     <td><?php se($value, null, "N/A"); ?></td>
                 <?php endforeach; ?>
+                <td>-</td>
                 <td>
                     <!-- other action buttons can go here-->
                     <a href="<?php echo get_url('account_history.php?id=') . $record['id']; ?>">History</a>
