@@ -5,7 +5,7 @@ $db = getDB();
 $user_id = get_user_id();
 $results = [];
 try {
-    $stmt = $db->prepare("SELECT id, account_number, account_type, balance, modified from Accounts where user_id=:user_id order by modified desc limit 5");
+    $stmt = $db->prepare("SELECT id, account_number, account_type, abs(balance), modified from Accounts where user_id=:user_id order by modified desc limit 5");
     $r = $stmt->execute(['user_id' => $user_id]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
