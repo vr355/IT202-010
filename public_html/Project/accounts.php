@@ -25,7 +25,6 @@ if (isset($_POST['close'])) {
         $r = $stmt->execute(['user_id' => $user_id, 'id' => $account_id]);
         if ($r) {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            print_r($result);
             if (!$result) {
                 flash("Accont does not exists", "danger");
             } else if ($result && $result['balance'] != 0) {
