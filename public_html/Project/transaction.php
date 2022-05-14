@@ -9,14 +9,14 @@ $accounts = [];
 $to_accounts = [];
 try {
     $stmt = $db->prepare("SELECT id, account_number from Accounts 
-    where user_id=:user_id and account_type <> 'loan'  order by modified desc");
+    where user_id=:user_id and account_type <> 'loan' and is_active=1  order by modified desc");
     $r = $stmt->execute(['user_id' => $user_id]);
     if ($r) {
         $accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     $stmt = $db->prepare("SELECT id, account_number from Accounts 
-    where user_id=:user_id  order by modified desc");
+    where user_id=:user_id and is_active=1  order by modified desc");
     $r = $stmt->execute(['user_id' => $user_id]);
     if ($r) {
         $to_accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);

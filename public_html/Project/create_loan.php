@@ -6,7 +6,10 @@ $user_id = get_user_id();
 $ayp = get_ayp($db, 'loan');
 $accounts = [];
 try {
-    $stmt = $db->prepare("SELECT id, account_number from Accounts where user_id=:user_id order by modified desc");
+    $stmt = $db->prepare("SELECT id, account_number from Accounts where user_id=:user_id 
+    and is_active=1 
+    and account_type <> 'loan'
+     order by modified desc");
     $r = $stmt->execute(['user_id' => $user_id]);
     if ($r) {
         $accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
