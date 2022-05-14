@@ -17,7 +17,7 @@ if (isset($_POST["deposit"])) {
     if (!$hasError) {
         $db = getDB();
         try {
-            create_account($db, $deposit);
+            create_account($db, $deposit, $account_type);
             flash('Account created successfully', 'success');
             die(header("Location: accounts.php"));
         } catch (\Throwable $e) {
