@@ -223,7 +223,76 @@
     - [https://vr355-prod.herokuapp.com/Project/transactions.php?type=transfer](https://vr355-prod.herokuapp.com/Project/transactions.php?type=transfer)
 
 - Milestone 4
-  - (duplicate template here for Milestone 1 features)
+
+  - [x] \(05/14/2022)User can set their profile to be public or private (will need another column in Users table)
+    - [x] \(05/14/2022)If profile is public, hide email address from other users (email address should not be publicly visible to others)
+    - [x] \(05/14/2022)[Milestone 4](https://github.com/vr355/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+    - [x] \(05/14/2022)[https://vr355-prod.herokuapp.com/Project/profile.php](https://vr355-prod.herokuapp.com/Project/profile.php)
+  - [x] \(05/14/2022)User will be able open a savings account
+    - [x] \(05/14/2022)System will generate a 12 digit/character account number per the existing rules (see Checking Account above)
+    - [x] \(05/14/2022)System will associate the account to the user
+    - [x] \(05/14/2022)Account type will be set as savings
+    - [x] \(05/14/2022)Will require a minimum deposit of $5 (from the world account)
+    - [x] \(05/14/2022)Entry will be recorded in the Transaction table in a transaction pair (per notes previously and below)
+    - [x] \(05/14/2022)Account Balance will be updated based on SUM of balance_change of account_src
+    - [x] \(05/14/2022)System sets an APY that’ll be used to calculate monthly interest based on the balance of the account
+    - [x] \(05/14/2022)Recommended to create a table for “system properties” and have this value stored there and fetched when needed, this will allow you to have an admin account change the value in the future)
+    - [x] \(05/14/2022)User will see user-friendly error messages when appropriate
+    - [x] \(05/14/2022)User will see user-friendly success message when account is created successfully
+    - [x] \(05/14/2022)Redirect user to their Accounts page
+    - [x] \(05/14/2022)[Milestone 4](https://github.com/vr355/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+    - [x] \(05/14/2022)[https://vr355-prod.herokuapp.com/Project/create_account.php](https://vr355-prod.herokuapp.com/Project/create_account.php)
+  - [x] \(05/14/2022)User will be able to take out a loan
+    - [x] \(05/14/2022)System will generate a 12 digit/character account number per the existing rules (see Checking Account above)
+    - [x] \(05/14/2022)Account type will be set as loan
+    - [x] \(05/14/2022)Will require a minimum value of $500
+    - [x] \(05/14/2022)System will show an APY (before the user submits the form)
+    - [x] \(05/14/2022)This will be used to add interest to the loan account
+    - [x] \(05/14/2022)Recommended to create a table for “system properties” and have this value stored there and fetched when needed, this will allow you to have an admin account change the value in the future)
+    - [x] \(05/14/2022)Form will have a dropdown of the user’s accounts of which to deposit the money into
+    - [x] \(05/14/2022)Special Case for Loans:
+    - [x] \(05/14/2022)Loans will show with a positive balance of what’s required to pay off (although it is a negative value in the database since the user owes it)
+    - [x] \(05/14/2022)User will transfer funds to the loan account to pay it off
+    - [x] \(05/14/2022)Transfers will continue to be recorded in the Transactions table per normal rules
+    - [x] \(05/14/2022)Loan account’s balance will be the balance minus any transfers to this account
+    - [x] \(05/14/2022)Interest will be applied to the current loan balance and add to it (causing the user to owe more)
+    - [x] \(05/14/2022)A loan with 0 balance will be considered paid off and will not accrue interest and will be eligible to be marked as closed
+    - [x] \(05/14/2022)User can’t transfer more money from a loan once it’s been opened and a loan account should not appear in the Account Source dropdowns
+    - [x] \(05/14/2022)User will see user-friendly error messages when appropriate
+    - [x] \(05/14/2022)User will see user-friendly success message when account is created successfully
+    - [x] \(05/14/2022)Redirect user to their Accounts page
+    - [x] \(05/14/2022)Listing accounts and/or viewing Account Details should show any applicable APY or “-” if none is set for the particular account
+    - [x] \(05/14/2022)[Milestone 4](https://github.com/vr355/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+    - [x] \(05/14/2022)[https://vr355-prod.herokuapp.com/Project/create_loan.php](https://vr355-prod.herokuapp.com/Project/create_loan.php)
+  - [x] \(05/14/2022)User will be able to close an account
+    - [x] \(05/14/2022)User must transfer or withdraw all funds out of the account before doing so (i.e., balance must be 0)
+    - [x] \(05/14/2022)Account should have a column “is_active” that will get set as false (the default value should be true).
+    - [x] \(05/14/2022)All queries for Accounts should be updated to pull only “active” = true accounts (i.e., dropdowns, My Accounts, etc)
+    - [x] \(05/14/2022)Do not delete the record, we’re a soft delete so it doesn’t break transactions
+    - [x] \(05/14/2022)Closed accounts should not be visible to the user anymore
+    - [x] \(05/14/2022)If the account is a loan, it must be paid off in full first
+    - [x] \(05/14/2022)[Milestone 4](https://github.com/vr355/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+    - [x] \(05/14/2022)[https://vr355-prod.herokuapp.com/Project/accounts.php](https://vr355-prod.herokuapp.com/Project/accounts.php)
+  - [x] \(05/14/2022)Admin role (leave this section for last)
+    - [x] \(05/14/2022)Will be able to search for users by firstname and/or lastname
+    - [x] \(05/14/2022)List will show the following
+    - [x] \(05/14/2022)The user’s first name, last name
+    - [x] \(05/14/2022)A link to view their accounts
+    - [x] \(05/14/2022)The list will let the admin view the transaction history of the account
+    - [x] \(05/14/2022)The list will let the admin freeze/unfreeze an account (see bullet two of admin for more details)
+    - [x] \(05/14/2022)A link to create/open an account for that user
+  - [x] \(05/14/2022)Will be able to deactivate a user
+
+    - [x] \(05/14/2022)Requires a new column on the Users table (i.e., is_active)
+    - [x] \(05/14/2022)Deactivated users will be restricted from logging in
+    - [x] \(05/14/2022)“Sorry your account is no longer active”
+    - [x] \(05/14/2022)Will be able to look-up specific account numbers (partial match)
+    - [x] \(05/14/2022)Selecting an account should redirect to a list of its transaction history
+    - [x] \(05/14/2022)The list should have a button giving the ability to freeze an account (this is similar to disable/delete but it’s a different column)
+    - [x] \(05/14/2022)Frozen accounts still show in results, but they can’t be interacted with
+    - [x] \(05/14/2022)[Dev note]: Will want to add a column to Accounts table called frozen and default it to false
+    - [x] \(05/14/2022)Update transactions logic to not allow frozen accounts to be used for a transaction
+
   -
 
 ### Intructions
