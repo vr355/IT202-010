@@ -196,9 +196,7 @@ function is_valid_loan_amount($db, $id, $amount)
 
 function get_ayp($db, $type)
 {
-    $db->beginTransaction();
-
-    $stmt = $db->prepare('SELECT value FROM SystemProperties where type = :type and property = "apy"');
+    $stmt = $db->prepare('SELECT value FROM SystemProperties where type = :type and property = "AYP"');
     $r = $stmt->execute([
         'type' => $type
     ]);
