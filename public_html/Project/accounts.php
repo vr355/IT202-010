@@ -6,7 +6,7 @@ $user_id = get_user_id();
 $results = [];
 try {
     $stmt = $db->prepare("SELECT id, account_number, account_type, is_active, abs(balance), 
-    modified from Accounts where user_id=:user_id order by modified");
+    modified from Accounts where user_id=:user_id and is_active =1 order by modified");
     $r = $stmt->execute(['user_id' => $user_id]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
